@@ -1,121 +1,91 @@
-/*
-// Logic for moving the bucket left and right, but does not include scoring logic
 document.addEventListener('DOMContentLoaded', () => {
-    const bucket = document.getElementById('bucket');
-    const gameInterface = document.getElementById('game-interface');
-    const bucketWidth = bucket.clientWidth;
-    
-    let bucketPos = gameInterface.clientWidth / 2 - bucketWidth / 2;
-    bucket.style.left = bucketPos + 'px';
-    
-    let fallingLoopStarted = false;
+  let fallingLoopStarted = false; //delay falling object start
 
-    //moves the bucket left and right by 5pxs 
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowLeft') {
-        bucketPos = Math.max(0, bucketPos - 5); // 5px movement but never off the interface
-        bucket.style.left = bucketPos + 'px';
-      } else if (event.key === 'ArrowRight') {
-        bucketPos = Math.min(gameInterface.clientWidth - bucketWidth, bucketPos + 5);// 5px movement but within the interface
-        bucket.style.left = bucketPos + 'px';
-      }
-    });
-  });
-
-//falling object logic goes here
-
-function startFallingLoop() {
-  const fallingObject = document.getElementById('falling-object');
-  let fallingSpeed = 2;
-  let fallingPosition = 0;
-
-  fallingObject.style.display = 'block';
-  fallingObject.style.top = fallingPosition + 'px';
-
-  const fallInterval = setInterval(() => {
-    fallingPosition += fallingSpeed;
-    fallingObject.style.top = fallingPosition + 'px';
-
-    if (fallingPosition >= gameInterface.clientHeight * 0.95) {
-      fallingObject.style.display = 'none';
-      clearInterval(fallInterval);
-    }
-  }, 20);
-}
-
-document.addEventListener('keydown', (event) => {
-  // Start the falling loop on the first key press
-  if (!fallingLoopStarted) {
-    startFallingLoop();
-    fallingLoopStarted = true;
-  }
-
-*/
-document.addEventListener('DOMContentLoaded', () => {
   // --- Bucket Logic ---
   const bucket = document.getElementById('bucket');
   const gameInterface = document.getElementById('game-interface');
   const bucketWidth = bucket.clientWidth;
   
   // Center the bucket on the interface adjust height in style.css
-  let bucketPos = gameInterface.clientWidth / 2 - bucketWidth / 2;
-  bucket.style.left = bucketPos + 'px';
-  
-  let fallingLoopStarted = false; //delay falling object start
+  setTimeout(() => {
+    const bucketWidth = bucket.clientWidth;
+    let bucketPos = gameInterface.clientWidth / 2 - bucketWidth / 2;
+    bucket.style.left = bucketPos + 'px';
 
   // Moves the bucket left and right when arrows are pressed 
-  document.addEventListener('keydown', (event) => {
-    if (event.key === 'ArrowLeft') {
-      //checks to ensure the input is within the bounds of the interface
-      if (bucketPos > 0) {
-        bucketPos = bucketPos - 5;
+  //checks to ensure the input is within the bounds of the interface
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft' && bucketPos > 0) {
+        bucketPos -= 10;
+      } else if (event.key === 'ArrowRight' && bucketPos < gameInterface.clientWidth - bucketWidth) {
+        bucketPos += 10;
       }
-      bucket.style.left = bucketPos + 'px';
-      //move the bucket right and ensures the input is within the bounds of the interface
-    } else if (event.key === 'ArrowRight') {
-      if (bucketPos < gameInterface.clientWidth - bucketWidth) {
-        bucketPos = bucketPos + 5;
-      }
-      bucket.style.left = bucketPos + 'px';
-    }
-  });
+        bucket.style.left = bucketPos + 'px';
+    });
+  }, 100); //delay to fix load issue recommended by chatgpt
 
   // --- Falling Object Logic ---
-  function startFallingLoop() {
-    const fallingObject = document.getElementById('falling-object');
-    let fallingSpeed = 2; // test at 2 but readjust later after all componets are done
-    let fallingPosition = 0; // Start falling at the top of the interface
-  
-    // Make sure the falling object is visible and set its initial position
-    fallingObject.style.display = 'block';
-    fallingObject.style.top = fallingPosition + 'px';
-  
-    //make the ball look likes it's moving
-    function animate() {
-      fallingPosition += fallingSpeed;
-      fallingObject.style.top = fallingPosition + 'px';
-  
-      // show the object until it is almost at the same axis as the bottom of the bucket
-      if (fallingPosition < gameInterface.clientHeight * 0.89) {
-        requestAnimationFrame(animate);
-      } else {
-        // Otherwise, hide the object when it passes the bottom of the bucket
-        fallingObject.style.display = 'none';
-      }
-    }
-  
-    requestAnimationFrame(animate);
-  }
-  // Start the falling loop on any key input but may change to button click
-  document.addEventListener('keydown', (event) => {
-    if (!fallingLoopStarted) {
-      startFallingLoop();
-      fallingLoopStarted = true;
-    }
-  });
-});
+    function animateFallingObject(object) {
+      const maxYAxis = gameInterface.clientHeight * 0.89; // show the object until it is almost at the same axis as the bottom of the bucket
+      let fallingSpeed = 2; // test at 2 but readjust later after all componets are done
+      let fallingPosition = 0; // Start falling at the top of the interface
+    
+      function fall() {
+        fallingPosition += fallingSpeed;
+        object.style.top = fallingPosition + 'px';
 
+        console.log (fallingPosition)
+        if (fallingPosition < maxYAxis) {
+            requestAnimationFrame(fall);
+        } else {
+            object.remove();
+        }
+    }
+    requestAnimationFrame(fall);
+  }
+      
+    function spawnMoreObjects() {
+        if (!fallingLoopStarted) return;
+        const newObject = document.createElement('div');
+        newObject.classList.add('falling-object'); // Apply the same CSS class to all spawned objects
+      
+        // new object styles
+        newObject.style.position = 'absolute';
+        newObject.style.width = '5px';
+        newObject.style.height = '5px';
+        newObject.style.borderRadius = '50%';
+        newObject.style.backgroundColor = 'green';
+
+        // Random Xaxis on the game interface
+        const maxXAxis = gameInterface.clientWidth - 10;
+        newObject.style.left = Math.floor(Math.random() * maxXAxis) + 'px';
+        newObject.style.top = '0px'; // Start at the top
+      
+        gameInterface.appendChild(newObject);
+        animateFallingObject(newObject); // Start falling animation
+      
+        // Schedule next object spawn with random delay using 1000-4000ms used chatgpt to help me set this up
+        const nextDelay = Math.random() * 3000 + 1000;
+        setTimeout(spawnMoreObjects, nextDelay);
+      }
+    //
+    function startFallingLoop() {
+      if (!fallingLoopStarted) {
+          fallingLoopStarted = true;
+          spawnMoreObjects();
+      }
+  }
+
+  // Start the loop when any key is pressed
+  document.addEventListener('keydown', startFallingLoop);
+});
 //collision logic goes here
+/* enemies.forEach((enemy, eIndex) => {
+  if (projectile.checkCollision(enemy)) {
+      // Remove both the enemy and the projectile
+      enemies.splice(eIndex, 1);
+      projectiles.splice(pIndex, 1);
+*/
 
 //score logic goes here
 
