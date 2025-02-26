@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script defer src="./app.js"></script>
     <link rel="stylesheet" href="./css/style.css">
-    <title>Document</title>
+    <title>Catch Captain</title>
 </head>
 
 <body>
@@ -13,17 +13,30 @@
     <div id="header">
       <h1>Catch Captain</h1>
     </div>
+
     <section id="game-section">
       <div id="game-interface">
-        <div id="score"></div>
-        <div id="lives"></div>
+        <button id="start">Click here to Start</button>
+
+        <div id="score-container">
+          <div id="score">Score: 0</div>
+          <div id="lives">Lives: 3</div>
+        </div>
+
         <div id="bucket"></div>
-        <div id="falling-object"></div>
-        <div id="deadly-object"></div>
       </div>
-      <button id="instructions"> click here for instructions</button>
+
+      <button id="instructions">Click here for instructions</button>
     </section>
   </main>
-</body>
 
+  <!-- Game Over / Win Modal -->
+  <div id="game-over-pop-up">
+    <div id="game-over-content">
+      <h2 id="game-over-title">Game Over!</h2>
+      <p id="game-over-message"></p>
+      <button id="restart">Restart</button>
+    </div>
+  </div>
+</body>
 </html>
