@@ -48,6 +48,12 @@ Catch-Captain/
    ```sh
    git clone https://github.com/your-username/catch-captain.git
 
+# Technologies Used
+- HTML
+- CSS
+- JavaScript
+- Canva (for video and logo creation)
+
 ## Planning Proposal
 **Project Proposal:** *Falling Object Catch Game*  
 
