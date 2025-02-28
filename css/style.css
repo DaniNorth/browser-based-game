@@ -17,7 +17,7 @@ body {
   --text-color: #000000;
   --accent-color: #b96989;
   --border-color: #c99f7b;
-  --background-video: url('../assets/sunset ocean.mp4');
+  --background-video: url('assets/sunset ocean.mp4');
 }
 
 .darkmode {
@@ -28,7 +28,7 @@ body {
   --text-color: #ffffff;
   --accent-color: #974845;
   --border-color: #a47e00;
-  --background-video: url('../assets/ship ocean.mp4');
+  --background-video: url('assets/ship ocean.mp4');
 }
 
 #theme-change {
