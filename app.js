@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
-  let fallingLoopStarted = false; //delay falling object start
+  let fallingLoopStarted = false; 
   let gamePaused = false; 
-  const fallingObjects = [];//array for spawned objects
-  const winningScore = 10; //winning conditional score
+  const fallingObjects = [];
+  const winningScore = 10; 
   
 // --- Page Setup ---
+
   const themeButton = document.getElementById('theme-change');
   const body = document.body;
   const video = document.getElementById('background-video');
@@ -14,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     body.classList.toggle('darkmode');
 
     const isDarkMode = body.classList.contains('darkmode');
-    const videoChoice = isDarkMode ? '/assets/ship ocean.mp4': '/assets/sunset ocean.mp4';
+    const videoChoice = isDarkMode ? 'assets/ship ocean.mp4': '/assets/sunset ocean.mp4';
     
     video.setAttribute('src', videoChoice);
     video.load();
@@ -26,9 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeInstructionsButton = document.getElementById('close-instructions');
 
   const gameInterface = document.getElementById('game-interface');
-  let score = 0; // starting score and lives counters
+  let score = 0; 
   let lives = 3;
-  const startButton = document.getElementById('start'); //changed from any keys to a click since logic flowed better  
+  const startButton = document.getElementById('start');  
   
   //score and lives display
   const scoreDisplay = document.getElementById('score');
@@ -63,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- Bucket Logic ---
   const bucket = document.getElementById('bucket');
-  let bucketPosition = gameInterface.clientWidth / 2 - 20;  // Center the bucket on the interface for the starting position, style can be updated in css
+  let bucketPosition = gameInterface.clientWidth / 2 - 20;  // Center the bucket on the interface for the starting position
   bucket.style.left = bucketPosition + 'px';
 
   // Moves the bucket left and right when arrows are pressed and checks to ensure the input is within the bounds of the interface
@@ -87,9 +88,9 @@ function createFallingObject() {
   gameInterface.appendChild(newObject);
   fallingObjects.push({ element: newObject, position: 0, speed: 2 });
 }
-
+// loop falling objects
 function animateFallingObjects() {
-  if (!fallingLoopStarted || gamePaused) return; // Stop updating if the game ends
+  if (!fallingLoopStarted || gamePaused) return;
 
   for (let i = 0; i < fallingObjects.length; i++) {
     let obj = fallingObjects[i];
