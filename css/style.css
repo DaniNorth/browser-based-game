@@ -6,22 +6,94 @@ body {
   background-color: gray;
   font-family: system-ui, sans-serif;
   margin: 0;
+  overflow: hidden;
+}
+
+:root {
+  --main-color: #86cae1;
+  --container-color: #9694947b;
+  --button-color: #29ba6f;
+  --button-hover: #56ab98;
+  --text-color: #000000;
+  --accent-color: #b96989;
+  --border-color: #c99f7b;
+  --background-video: url('/assets/sunset ocean.mp4');
+}
+
+.darkmode {
+  --main-color: #006B90;
+  --container-color: #cfcecec9;
+  --button-color: #668800;
+  --button-hover: #6f641f;
+  --text-color: #ffffff;
+  --accent-color: #974845;
+  --border-color: #a47e00;
+  --background-video: url('/assets/ship ocean.mp4');
+}
+
+#theme-change {
+  height: 50px;
+  width: 50px;
+  padding: 0;
+  border-radius: 50%;
+  background-color: var(--container-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  cursor: pointer;
+}
+
+#theme-change img {
+  width: 24px;
+  height: 24px;
+}
+
+#theme-change img:first-child {
+  display: block;
+}
+#theme-change img:last-child {
+  display:none;
+}
+
+.darkmode #theme-change img:first-child {
+  display: none;
+}
+
+.darkmode #theme-change img:last-child {
+  display: block;
+}
+
+video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: -1;
 }
 
 /* Header */
 #header {
-  margin-top: 2em;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 250px;
+  height: 250px;
+  background-image: url(/assets/catch.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: auto;
+  margin-right: auto;
 }
-
 /* Game Section */
 #game-section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2em;
 }
 
 /* Game Interface */
@@ -29,8 +101,10 @@ body {
   position: relative;
   width: 300px;
   height: 500px;
+  background-image: url(/assets/ocean\ background\ photo.jpg);
   background-color: white;
-  border: 3px solid black;
+  background-size: cover;
+  border: 4px solid var(--border-color);
   border-radius: 10%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -38,19 +112,24 @@ body {
 /* Bucket */
 #bucket {
   position: absolute;
-  width: 20px;
-  height: 20px;
-  background-color: rgb(89, 33, 33);
+  width: 40px;
+  height: 40px;
+  background-image: url(/assets/transparent-copper-table-metal-furniture-brass-5da6fd2a8077b5.1081613515712248745262.png);
+  background-color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
   bottom: 10%;
 }
 
 /* Falling Objects */
 .falling-object {
   position: absolute;
-  width: 5px;
-  height: 5px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
-  background-color: green;
+  background-color: transparent;
+  background-image: url(/assets/—Pngtree—glossy\ golden\ coin_4199602.png);
+  background-size: cover;
   top: 0;
 }
 
@@ -68,7 +147,7 @@ body {
 }
 
 #score, #lives {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: var(--container-color);
   padding: 5px 10px;
   border-radius: 5px;
   border: 2px solid black;
@@ -78,7 +157,7 @@ body {
 /* Buttons */
 button {
   margin-top: 1em;
-  background: greenyellow;
+  background: var(--button-color);
   border-radius: 10%;
   padding: 10px;
   font-size: 16px;
@@ -89,7 +168,7 @@ button {
 }
 
 button:hover {
-  background: green;
+  background: var(--button-hover);
 }
 
 /* Start Button */
@@ -99,8 +178,8 @@ button:hover {
   align-items: center;
   font-size: 18px;
   font-weight: bold;
-  color: white;
-  background-color: green;
+  color: var(--text-color);
+  background-color: var(--button-color);
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -112,10 +191,10 @@ button:hover {
 }
 
 #start:hover {
-  background-color: darkgreen;
+  background-color:var(--button-hover);
 }
 
-/* Game Over / Win Modal */
+/* Game Over pop-up */
 #game-over-pop-up {
   display: none;
   position: fixed;
@@ -130,8 +209,10 @@ button:hover {
 }
 
 #game-over-content {
-  background: white;
+  background: var(--text-color);
   padding: 20px;
+  width:300px;
+  max-width: 75%;
   border-radius: 10px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -145,11 +226,51 @@ button:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background: green;
-  color: white;
+  background: var(--main-color);
+  color: var(--text-color);
   transition: background 0.3s;
 }
 
 #restart:hover {
-  background: darkgreen;
+  background: var(--button-color);
+}
+
+#instructions-window {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#instructions-content {
+  background: var(--text-color);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 500px;
+  max-width: 75%;
+}
+
+#close-instructions {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: var(--main-color);
+  color: var(--text-color);
+  transition: background 0.3s;
+}
+
+#close-instructions:hover {
+  background: var(--button-color);
 }

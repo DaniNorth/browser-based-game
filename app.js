@@ -1,11 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
   let fallingLoopStarted = false; //delay falling object start
+  let gamePaused = false; 
   const fallingObjects = [];//array for spawned objects
   const winningScore = 10; //winning conditional score
   
+// --- Page Setup ---
+  const themeButton = document.getElementById('theme-change');
+  const body = document.body;
+  const video = document.getElementById('background-video');
+
+//Video changes with the theme
+  themeButton.addEventListener('click', () => {
+    body.classList.toggle('darkmode');
+
+    const isDarkMode = body.classList.contains('darkmode');
+    const videoChoice = isDarkMode ? '/assets/ship ocean.mp4': '/assets/sunset ocean.mp4';
+    
+    video.setAttribute('src', videoChoice);
+    video.load();
+  });
+
 // --- Game Interface Setup ---
-  
-  const gameInterface = document.getElementById('game-interface'); // create the inteface
+  const instructionsButton = document.getElementById('instructions');
+  const instructionsPopup = document.getElementById('instructions-window');
+  const closeInstructionsButton = document.getElementById('close-instructions');
+
+  const gameInterface = document.getElementById('game-interface');
   let score = 0; // starting score and lives counters
   let lives = 3;
   const startButton = document.getElementById('start'); //changed from any keys to a click since logic flowed better  
@@ -15,17 +35,42 @@ document.addEventListener('DOMContentLoaded', () => {
   scoreDisplay.innerText = 'Score: 0';
   const livesDisplay = document.getElementById('lives');
   livesDisplay.innerText = 'Lives: 3';
+  
+  //How to play pop-up window that pauses game
+  instructionsButton.addEventListener('click', () => {
+    instructionsPopup.style.display = 'flex';
+    pauseGame();
+  });
+  
+  //close how to window and resume game
+  closeInstructionsButton.addEventListener('click', () => {
+    instructionsPopup.style.display = 'none';
+    resumeGame();
+  });
+  
+  function pauseGame() {
+    if (fallingLoopStarted) {
+        gamePaused = true;
+    }
+  }
+
+  function resumeGame() {
+    if (gamePaused) {
+        gamePaused = false;
+        requestAnimationFrame(animateFallingObjects);
+    }
+  }
 
 // --- Bucket Logic ---
-  const bucket = document.getElementById('bucket');// creating the bucket
-  let bucketPosition = gameInterface.clientWidth / 2 - 15;  // Center the bucket on the interface for the starting position, style can be updated in css
+  const bucket = document.getElementById('bucket');
+  let bucketPosition = gameInterface.clientWidth / 2 - 20;  // Center the bucket on the interface for the starting position, style can be updated in css
   bucket.style.left = bucketPosition + 'px';
 
   // Moves the bucket left and right when arrows are pressed and checks to ensure the input is within the bounds of the interface
   document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowLeft' && bucketPosition > 0) {
       bucketPosition -= 15;
-    } else if (event.key === 'ArrowRight' && bucketPosition < gameInterface.clientWidth - 30) {
+    } else if (event.key === 'ArrowRight' && bucketPosition < gameInterface.clientWidth - 46) {
       bucketPosition += 15;
     }
     bucket.style.left = bucketPosition + 'px';
@@ -39,13 +84,12 @@ function createFallingObject() {
   newObject.style.top = '0px';
   newObject.style.left = Math.random() * (gameInterface.clientWidth - 5) + 'px'; // Ensure falling objects appear randomly across the interface
 
-  //hold the newly created falling objects from above
   gameInterface.appendChild(newObject);
   fallingObjects.push({ element: newObject, position: 0, speed: 2 });
 }
 
 function animateFallingObjects() {
-  if (!fallingLoopStarted) return; // Stop updating if the game ends
+  if (!fallingLoopStarted || gamePaused) return; // Stop updating if the game ends
 
   for (let i = 0; i < fallingObjects.length; i++) {
     let obj = fallingObjects[i];
@@ -53,10 +97,10 @@ function animateFallingObjects() {
     obj.element.style.top = obj.position + 'px';
     
     // Check if object touches the bucket and add to score counter or subtract from lives
-    if (obj.position >= gameInterface.clientHeight * 0.89) {
+    if (obj.position >= gameInterface.clientHeight * 0.81) {
       if (
         obj.element.offsetLeft >= bucketPosition &&
-        obj.element.offsetLeft <= bucketPosition + bucket.clientWidth
+        obj.element.offsetLeft <= bucketPosition + bucket.clientWidth + 2
         ) {
         score++; //scoring logic
         scoreDisplay.innerText = 'Score: ' + score;
@@ -117,18 +161,3 @@ function animateFallingObjects() {
   //update from keydown to click for simpler logic
   startButton.addEventListener('click', startFallingLoop);
 });
-
-
-//instruction logic goes here
-
-
-
-//-----------Next Steps goes here ------------//
-
-//falling deadly-object logic here 
-const deadlyObject = document.getElementById('deadly-object');
-
-//falling object loop goes here
-
-// dealy-object collision logic goes here
-

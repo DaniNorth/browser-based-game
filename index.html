@@ -7,33 +7,42 @@
     <link rel="stylesheet" href="./css/style.css">
     <title>Catch Captain</title>
 </head>
-
-<body>
+<body class="darkmode">
+  <button id="theme-change">
+    <img src="/assets/dark_mode_24dp_1F1F1F_FILL1_wght400_GRAD0_opsz24.png" alt="Dark Mode Icon">
+    <img src="/assets/light_mode_24dp_1F1F1F_FILL1_wght400_GRAD0_opsz24.png" alt="Light Mode Icon">
+</button>
+<video id="background-video" autoplay loop muted>
+    <source src="/assets/sunset ocean.mp4" type="video/mp4" alt="background video default">
+</video>
   <main>
-    <div id="header">
-      <h1>Catch Captain</h1>
-    </div>
-
+    <div id="header"></div>
     <section id="game-section">
       <div id="game-interface">
-        <button id="start">Click here to Start</button>
-
+        <button id="start">Click here to Start</button> 
         <div id="score-container">
           <div id="score">Score: 0</div>
           <div id="lives">Lives: 3</div>
         </div>
-
         <div id="bucket"></div>
       </div>
-
-      <button id="instructions">Click here for instructions</button>
+      <button id="instructions">How to Play</button>
+      <div id="instructions-window" class="popup">
+        <div id="instructions-content">
+            <h2>How to Play</h2>
+            <p>Move the bucket using the Left and Right arrow keys.</p>
+            <p>Catch the falling coins to earn points.</p>
+            <p>Add 10 coins to your treasure and win the game.</p>
+            <p>Miss too many and you lose!</p>
+            <p>Press "Start" to begin.</p>
+            <button id="close-instructions">Close</button>
+        </div>
+    </div>
     </section>
   </main>
-
-  <!-- Game Over / Win Modal -->
   <div id="game-over-pop-up">
     <div id="game-over-content">
-      <h2 id="game-over-title">Game Over!</h2>
+      <h2 id="game-over-title"></h2>
       <p id="game-over-message"></p>
       <button id="restart">Restart</button>
     </div>
