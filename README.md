@@ -49,10 +49,47 @@ Catch-Captain/
    git clone https://github.com/your-username/catch-captain.git
 
 ## Planning Proposal
-...
+**Project Proposal:** *Falling Object Catch Game*  
 
-## Future Enhancements
-...  
+I want to create my own game where the player catches falling objects. The goal is to build a fun and engaging experience with increasing difficulty.  
+Minimum Viable Product (MVP)  
 
-## credits
-... 
+- The game will feature a simple board where objects fall from the top.
+- The player will control a container (e.g., a basket) to catch objects.
+- A counter will track the player's score.
+- Animations will be implemented using CSS.
+- Win/Loss Conditions:  
+-- The player wins if they collect 10 objects.  
+-- The player loses if they miss 3 objects.  
+-- A restart button will appear when the game ends.  
+
+**Enhancements & Next Steps**  
+
+*Adding Visuals*
+- Replace CSS shapes with actual images for the falling objects and player container.
+- Introduce "bad" falling objects that count as a missed object if caught.  
+  
+*Increasing Difficulty*
+- Implement a timer that gradually increases the falling speed, 
+- making the game more challenging over time.
+  
+*Advanced Features*  
+
+- Increase the number of "bad" falling objects in proportion to the falling speed.
+- Allow players to select different difficulty levels.
+
+## credits and tools used
+Logo and background video creation through Canva and downloaded 
+
+used ChatGPT for project planning, indentifiying in-game functions like 
+- requestAnimationFrame(callback: FrameRequestCallback): number;  
+- setTimeout(handler: TimerHandler, timeout?: number, ...arguments: any[]): number;
+
+other assets from
+utilized assets from Google fonts icons for dark and light mode icons
+
+image assets credits
+- [Bucket](https://www.cleanpng.com/png-copper-product-design-7248495/)
+- [Coin](https://pngtree.com/freepng/glossy-golden-coin_4199602.html)
+- [Interface background](https://i.pinimg.com/736x/30/3f/2c/303f2c41db5dc4d8d4c1ca739487e8b1.jpg)
+
