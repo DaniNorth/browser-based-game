@@ -82,7 +82,7 @@ video {
 #header {
   width: 250px;
   height: 250px;
-  background-image: url(assets/catch.png);
+  background-image: url(../assets/catch.png);
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
