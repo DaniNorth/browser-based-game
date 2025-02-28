@@ -10,10 +10,10 @@ body {
 }
 
 :root {
-  --main-color: #86cae1;
+  --main-color: #54a3be;
   --container-color: #9694947b;
   --button-color: #29ba6f;
-  --button-hover: #56ab98;
+  --button-hover: #4e9c8b;
   --text-color: #000000;
   --accent-color: #b96989;
   --border-color: #c99f7b;
@@ -183,7 +183,7 @@ button:hover {
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
+  transition: 0.3s ease-in-out;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -209,7 +209,8 @@ button:hover {
 }
 
 #game-over-content {
-  background: var(--text-color);
+  background-color: var(--main-color);
+  color: var(--text-color);
   padding: 20px;
   width:300px;
   max-width: 75%;
@@ -226,13 +227,13 @@ button:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background: var(--main-color);
+  background: var(--button-color);
   color: var(--text-color);
-  transition: background 0.3s;
+  transition: 0.3s;
 }
 
 #restart:hover {
-  background: var(--button-color);
+  background: var(--button-hover);
 }
 
 #instructions-window {
@@ -249,7 +250,8 @@ button:hover {
 }
 
 #instructions-content {
-  background: var(--text-color);
+  background: var(--main-color);
+  color: var(--text-color);
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -266,11 +268,11 @@ button:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  background: var(--main-color);
+  background: var(--button-color);
   color: var(--text-color);
   transition: background 0.3s;
 }
 
 #close-instructions:hover {
-  background: var(--button-color);
+  background: var(--button-hover);
 }
