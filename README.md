@@ -12,6 +12,9 @@
 ## Overview
 **Catch Captain** is an interactive browser game where players control a bucket to catch falling coins while avoiding missing too many. The objective is to **collect 10 coins** to win the game before running out of lives.
 
+[Play Now](https://daninorth.github.io/browser-based-game/)  
+
+[View Code on GitHub](https://github.com/DaniNorth/browser-based-game.git)
 
 ## How to Play
 - Use the **Left** and **Right** arrow keys to move the bucket.
@@ -45,7 +48,7 @@ Catch-Captain/
    ```sh
    git clone https://github.com/your-username/catch-captain.git
 
-## About the Planning
+## Planning Proposal
 ...
 
 ## Future Enhancements

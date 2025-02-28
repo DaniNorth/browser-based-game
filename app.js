@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     body.classList.toggle('darkmode');
 
     const isDarkMode = body.classList.contains('darkmode');
-    const videoChoice = isDarkMode ? 'assets/ship ocean.mp4': 'assets/sunset ocean.mp4';
+    const videoChoice = isDarkMode ? '../assets/ship ocean.mp4': '../assets/sunset ocean.mp4';
     
     video.setAttribute('src', videoChoice);
     video.load();
